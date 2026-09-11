@@ -1,0 +1,71 @@
+/* Responsive poster grid, skeletons and the load-more footer. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--tile-min, 150px), 1fr));
+  gap: clamp(20px, 2.4vw, 32px) clamp(12px, 1.6vw, 20px);
+}
+@media (max-width: 420px) {
+  .grid {
+    --tile-min: 132px;
+  }
+}
+.pending {
+  opacity: 0.45;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+.skeletonBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+.skeletonPoster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+}
+.skeletonLine {
+  height: 12px;
+}
+.sentinel {
+  height: 1px;
+}
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 44px 0 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--text-muted);
+}
+.loadMore {
+  padding: 14px 30px;
+  border-radius: var(--pill);
+  border: var(--rule);
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  transition: background var(--transition), color var(--transition),
+    transform var(--transition);
+}
+.loadMore:hover:not(:disabled) {
+  background: var(--white);
+  color: var(--black);
+  transform: scale(1.06);
+}
+.loadMore:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.end {
+  color: var(--text-faint);
+}

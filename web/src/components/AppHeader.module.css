@@ -1,0 +1,159 @@
+/* Floating pill navigation, wishlist badge and offline banner. */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--bg);
+}
+.inner {
+  position: relative;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+}
+.mark {
+  width: 30px;
+  height: 30px;
+  background: var(--black);
+  color: var(--orange);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 1;
+  transition: transform var(--transition);
+}
+.brand:hover .mark {
+  transform: scale(1.1);
+}
+.brandText {
+  font-family: var(--font-display);
+  font-size: 19px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  display: none;
+}
+@media (min-width: 420px) {
+  .brandText {
+    display: inline;
+  }
+}
+.nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: var(--black);
+  border-radius: var(--pill);
+  box-shadow: var(--shadow-nav);
+}
+@media (min-width: 720px) {
+  .nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0;
+  }
+}
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: var(--pill);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  transition: background var(--transition), color var(--transition);
+}
+.link:hover {
+  background: var(--white);
+  color: var(--black);
+}
+.active {
+  background: var(--orange);
+  color: var(--black);
+}
+.active:hover {
+  background: var(--white);
+}
+.linkIcon {
+  width: 15px;
+  height: 15px;
+}
+.linkLabel {
+  display: none;
+}
+@media (min-width: 560px) {
+  .linkLabel {
+    display: inline;
+  }
+}
+.badge {
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--pill);
+  background: var(--orange);
+  color: var(--black);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+.active .badge,
+.link:hover .badge {
+  background: var(--black);
+  color: var(--orange);
+}
+.source {
+  display: none;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--black);
+  padding-bottom: 2px;
+  border-bottom: var(--rule);
+  transition: transform var(--transition);
+}
+@media (min-width: 720px) {
+  .source {
+    display: inline-block;
+  }
+}
+.source:hover {
+  transform: translateX(4px);
+}
+.offline {
+  position: relative;
+  z-index: 41;
+  padding: 8px var(--gutter);
+  background: var(--black);
+  color: var(--orange);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-align: center;
+}

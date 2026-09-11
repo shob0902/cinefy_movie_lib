@@ -1,0 +1,22 @@
+/* Browse page column layout and section spacing. */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 40px;
+}
+.hero {
+  padding-top: 4px;
+}
+.band {
+  margin-top: 4px;
+}
+.sectionTitle {
+  font-size: clamp(20px, 3vw, 32px);
+  line-height: 0.9;
+}
+.notices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

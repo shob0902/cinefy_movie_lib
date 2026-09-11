@@ -1,0 +1,76 @@
+/* Giant call to action and the footer rule beneath it. */
+.wrap {
+  margin-top: auto;
+}
+.cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 3vw, 36px);
+  padding: clamp(56px, 10vw, 128px) var(--gutter);
+  text-align: center;
+}
+.ctaHeading {
+  font-size: 14vw;
+  line-height: 0.85;
+}
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(16px, 2vw, 22px) clamp(30px, 4vw, 48px);
+  border-radius: var(--pill);
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 1.4vw, 15px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  transition: transform var(--transition), background var(--transition),
+    color var(--transition);
+}
+.ctaButton:hover {
+  transform: scale(1.1);
+}
+.ctaIcon {
+  width: 1.2em;
+  height: 1.2em;
+  transition: transform var(--transition);
+}
+.ctaButton:hover .ctaIcon {
+  transform: rotate(45deg);
+}
+.footer {
+  border-top: var(--rule);
+  padding: 22px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+.copy {
+  color: var(--text-muted);
+}
+.links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.link {
+  position: relative;
+  padding-bottom: 2px;
+  border-bottom: var(--rule-width) solid transparent;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.link:hover {
+  border-bottom-color: var(--black);
+  transform: translateX(4px);
+}

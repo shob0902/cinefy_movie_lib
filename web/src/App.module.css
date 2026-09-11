@@ -1,0 +1,4 @@
+/* App shell layout: keeps the closing footer at the bottom on short pages. */
+.main {
+  flex: 1;
+}

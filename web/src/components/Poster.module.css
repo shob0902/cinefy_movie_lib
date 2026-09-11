@@ -1,0 +1,45 @@
+/* Reserved image box, load-in fade and labelled placeholder. */
+.frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--black);
+  aspect-ratio: var(--poster-ratio, 2 / 3);
+}
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.loaded {
+  opacity: 1;
+}
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  padding: 12px;
+  text-align: center;
+  background: var(--black);
+  color: var(--orange);
+}
+.placeholderIcon {
+  width: 28px;
+  height: 28px;
+}
+.placeholderText {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

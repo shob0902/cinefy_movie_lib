@@ -1,0 +1,65 @@
+/* Save button styling for the icon-only and labelled variants. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: var(--pill);
+  border: var(--rule);
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  transition: background var(--transition), color var(--transition),
+    transform var(--transition);
+}
+.button:hover:not(:disabled) {
+  background: var(--black);
+  color: var(--orange);
+  transform: scale(1.1);
+}
+.button:active:not(:disabled) {
+  transform: scale(0.94);
+}
+.button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.iconOnly {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+}
+.labelled {
+  padding: 13px 24px;
+  font-size: 12px;
+}
+.saved {
+  background: var(--orange);
+  color: var(--black);
+}
+.saved:hover:not(:disabled) {
+  background: var(--black);
+  color: var(--orange);
+}
+.icon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.28);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.pop {
+  animation: pop 260ms ease-out;
+}
