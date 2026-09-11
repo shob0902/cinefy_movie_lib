@@ -12,6 +12,7 @@ data source. The browser never talks to TMDB directly.
 ## Contents
 
 - [Quick start](#quick-start)
+- [Deployment](#deployment)
 - [What it does](#what-it-does)
 - [Architecture](#architecture)
 - [API reference](#api-reference)
@@ -68,6 +69,63 @@ npm run typecheck   # both packages
 npm run smoke       # fixture checks for the parsing + cache logic
 npm start           # run the compiled server (after npm run build)
 ```
+
+---
+
+## Deployment
+
+The two packages deploy separately: the static bundle to **Netlify**, the API to a
+**Render** web service. No code changes are needed — everything is env-driven
+through `server/src/config/env.ts`.
+
+Netlify **proxies** `/api/*` to Render (`netlify.toml`), so the browser only ever
+talks to the Netlify origin. That keeps the app same-origin and means the backend
+URL is a config value rather than something baked into the JS bundle —
+`VITE_API_BASE_URL` keeps its `/api` default and is not set in production.
+
+### Render (API)
+
+| Setting | Value |
+| --- | --- |
+| Root directory | *(blank — repo root; the only lockfile is the root one)* |
+| Build command | `npm ci --include=dev && npm run build --workspace server` |
+| Start command | `npm run start --workspace server` |
+| Health check path | `/api/health` |
+
+Environment: `TMDB_ACCESS_TOKEN` (required), `NODE_ENV=production`,
+`NODE_VERSION=22`, `CORS_ORIGINS=https://<site>.netlify.app`, `LOG_LEVEL=info`.
+Do **not** set `PORT` — Render injects it.
+
+`--include=dev` is required because `NODE_ENV=production` makes npm skip
+`devDependencies`, and `typescript` is one. `NODE_VERSION=22` matters because
+`better-sqlite3` is a native module — a pinned LTS gets a prebuilt binary instead
+of a node-gyp compile.
+
+### Netlify (web)
+
+`netlify.toml` supplies the build command, publish directory and both redirect
+rules, so no dashboard configuration and no environment variables are needed.
+The `/api/*` proxy must stay above the SPA fallback — rules match top-down. Point
+its `to =` at your actual Render URL.
+
+### `CORS_ORIGINS` is still required, despite the proxy
+
+Easy to get wrong: it looks like proxying makes CORS moot, and for `GET` it does.
+But browsers attach an `Origin` header to same-origin `POST`/`DELETE` too, and
+Netlify forwards it upstream, where `server/src/app.ts` rejects any present-but-
+unlisted origin with a `400`. Skip this and browsing works perfectly while
+wishlist writes fail — a confusing partial outage. Matching is exact string
+equality on scheme + host, no trailing slash; multiple origins are comma-separated.
+
+### Free-tier caveats
+
+- **Wishlists reset on redeploy.** SQLite sits on Render's ephemeral disk. A paid
+  instance with a disk at `/var/data` plus `DATABASE_FILE=/var/data/cinefy.sqlite`
+  fixes it with no code change — absolute paths are already handled.
+- **Cold starts time out visibly.** Free services sleep after ~15 min and take
+  ~50 s to wake, against a 15 s client fetch timeout, so the first load after idle
+  shows "The request timed out". Reloading works. An uptime pinger on
+  `/api/health` avoids it.
 
 ---
 

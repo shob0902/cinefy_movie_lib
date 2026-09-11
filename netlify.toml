@@ -1,0 +1,21 @@
+# Netlify deployment config. Builds only the web workspace; the API lives on Render.
+[build]
+  command = "npm run build --workspace web"
+  publish = "web/dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Proxy API calls to Render so the browser stays same-origin.
+# MUST come before the SPA fallback — rules are evaluated top-down.
+[[redirects]]
+  from = "/api/*"
+  to = "https://cinefy-api.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# SPA fallback so /movie/:id and /wishlist survive a hard refresh.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
